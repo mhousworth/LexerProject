@@ -1,0 +1,7 @@
+
+if do or
+int for and not
+bool true else then
+float false endif while doend input
+forend output
+whileend
