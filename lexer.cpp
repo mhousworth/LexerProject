@@ -32,8 +32,9 @@ STATES
 
 
 //DATA
-unsigned int inputState;
-unsigned int CurrentStat;
+unsigned int input;
+unsigned int oldState;
+unsigned int currentState;
 
 unsigned int stateTable [20] [20];
 
@@ -59,27 +60,34 @@ string get_filename(string name){
 }
 
 void readFile(string filename){
-    ifstream file;
-    file.open (filename);
-    if (!file.is_open()) 
-        cout << "ERROR";
 
-    string word;
-    while (file >> word)
-    {
-        cout<< word << '\n';
-        initialParse(word);
-    }
+
+    char ch;
+    fstream fin(filename, fstream::in);
+    string token;
+    while (fin >> noskipws >> ch) {
+        cout << ch << endl;
+        input = charLexer(ch);
+        currentState = stateTable [oldState][input];
+        
+        //if state 
+        if (currentState==oldState){
+            token.push_back(ch);
+
+        }
+    }      
 }
 
+/*
 void lex_token(string token){
     char ch;
-    stream fin(file_name);
+    ifstream fin(file_name);
     while (fin >> noskipws >> ch) {
         
         cout << ch << endl; // Or whatever
     }
 }
+*/
 
 
 //this is the initial parse function that will take in a token and then branch off to corresponding function based on whether the first element is a char int etc
@@ -126,8 +134,13 @@ unsigned int charLexer (char uno){
     else  if (isdigit(uno)){
         return 2;
     }
-    else  if (isdigit(uno)){
-        return 3;
+    else  if (uno=='!'){
+        //comment
+        return 5;
+    }
+    // insert logic for operators
+    else if (uno == '+'){
+
     }
     else if (ispunct(uno)){
 
