@@ -80,9 +80,8 @@ void readFile(std::string filename){
         else if (currentState==2 || currentState==3||currentState==4){
             token.push_back(ch);
         }
-        else if (){
-            
-        }
+        else if (currentState==1){
+            std::cout << "Error" << "" <<token;
 
         }
     }      
