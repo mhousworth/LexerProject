@@ -76,6 +76,10 @@ void readFile(std::string filename){
         //if state 
         if (currentState==oldState){
             token.push_back(ch);
+        }
+        else if (currentState=2 || currentState=3){
+
+        }
 
         }
     }      
