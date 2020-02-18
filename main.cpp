@@ -21,7 +21,7 @@ unsigned int charLexer (char uno);
 void parse(std::string input);
 
 // Arrays for seperators and operator
-const char sep[10] = {'\'', '(', ')', '{', '}', '[', ']', ',', ':', ';'};
+const char sep[11] = {'\'', '(', ')', '{', '}', '[', ']', ',', ':', ';', ' '};
 const char opr[8] = {'*', '+', '-', '=', '/', '>', '<', '%'};
 
 // Map of vectors of keywords
@@ -60,8 +60,9 @@ bool isKey(std::string s){
 
     if (s.length() <= 7) {
         for (int i = 0; i < keywordsMap[s.length()].size(); i++){
-            if (s == keywordsMap[s.length()][i])
+            if (s == keywordsMap[s.length()][i]){
                 return true;
+            }
         }
     }
 }
@@ -154,7 +155,7 @@ void charParse(std::string input){
 
 // Returns True if character is in the seperator list
 bool isSep(char c){
-    for (int i=0; i<10; i++)
+    for (int i=0; i<11; i++)
         if (c == sep[i])
             return true;
 
