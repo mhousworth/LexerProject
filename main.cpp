@@ -37,6 +37,9 @@ unsigned int stateTable[6][6];
 // Key: wordlength
 std::map<int, std::vector<std::string>> keywordsMap;
 
+// Vector of Tokens
+std::vector<std::pair<std::string, std::string>> tokenTypeVector;
+
 int main(){
 
     // List of Pairs of Tokens and Types
@@ -71,7 +74,34 @@ void readFile(std::string filename){
         input = checkChar(ch);
         currentState = stateTable[oldState][input];
         
-        //If in a comment block
+        // If in a comment block
+        if((currentState == 5) && (oldState == 5)){
+            // Make no change, do not save characters
+            continue;
+        }
+        // If starting a comment block
+        else if((currentState == 5) && (oldState != 5)){
+            // If we have a non-empty string, evaluate the token type
+            if (token.length != 0){
+                // Check old state
+                // If state 2, check if its a keyword
+                    // If so, record as such
+                    // Else, record as identifier
+
+                // If state 3, record as an integer
+
+                // If state 4, record as a float/double
+            }
+            else{
+                // Nothing to record
+                continue;
+            }
+        }
+        // End of comment block
+        else if((currentState == 1) && (oldState == 5)){
+            // Nothing to record
+            continue;
+        }
 
         //if state 
         if (currentState==oldState){
