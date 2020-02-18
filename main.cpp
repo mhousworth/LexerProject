@@ -15,7 +15,7 @@ bool isSep(char c);
 bool isOpr(char c);
 bool isKey(std::string s);
 
-unsigned int charLexer (char uno);
+unsigned int checkChar (char uno);
 
 std::string get_filename(std::string filename);
 void readFile(std::string filename);
@@ -77,8 +77,11 @@ void readFile(std::string filename){
         if (currentState==oldState){
             token.push_back(ch);
         }
-        else if (currentState=2 || currentState=3){
-
+        else if (currentState==2 || currentState==3||currentState==4){
+            token.push_back(ch);
+        }
+        else if (){
+            
         }
 
         }
