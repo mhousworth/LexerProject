@@ -110,10 +110,19 @@ void readFile(std::string filename){
         else if (currentState==2 || currentState==3||currentState==4){
             token.push_back(ch);
         }
-        else if (){
-            
-        }
+        // Returning to initial state
+        else if (currentState==1){
+            // Check old state
+            // If state 2, check if its a keyword
+                // If so, record as such
+                // Else, record as identifier
 
+            // If state 3, record as an integer
+
+            // If state 4, record as a float/double
+
+            // If from state 1, check character "checkChar()"
+                // record as seperator or operator
         }
     }      
 }
