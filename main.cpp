@@ -17,12 +17,21 @@ bool isKey(std::string s);
 
 unsigned int charLexer (char uno);
 
-//Initial Parsing Function
-void parse(std::string input);
+std::string get_filename(std::string filename);
+void readFile(std::string filename);
+
 
 // Arrays for seperators and operator
 const char sep[11] = {'\'', '(', ')', '{', '}', '[', ']', ',', ':', ';', ' '};
 const char opr[8] = {'*', '+', '-', '=', '/', '>', '<', '%'};
+
+//
+unsigned int input;
+unsigned int oldState;
+unsigned int currentState;
+
+// Create State Table
+unsigned int stateTable[6][6];
 
 // Map of vectors of keywords
 // Key: wordlength
@@ -33,26 +42,43 @@ int main(){
     // List of Pairs of Tokens and Types
     std::list<std::pair<std::string, std::string>> tokenList;
 
-    // Create State Table
-    unsigned int st[6][6];
-
     generateKeywords();
-    generateStateTable(st);
+    generateStateTable(stateTable);
 
-    // Input handler
-    
-    //While loop for input
-        //Send unparsed token to parsing function
+    std::string hold;  
+    readFile(get_filename(hold));
 
-
-    // Check character
-        // Letter
-        // Digit
-        // Separators
-        // Switch case for Operators
-        // Comments
 
     return true;
+}
+
+std::string get_filename(std::string name){
+    std::string file_name;
+    std::cout <<" Please enter a filename to lexically analyze:" << std::endl;
+    std::cin >> file_name;
+    file_name.append(".txt");
+    return file_name;
+}
+
+void readFile(std::string filename){
+
+    char ch;
+    std::fstream fin(filename, std::fstream::in);
+    std::string token;
+
+    while (fin >> std::noskipws >> ch) {
+        std::cout << ch << std::endl;
+        input = checkChar(ch);
+        currentState = stateTable[oldState][input];
+        
+        //If in a comment block
+
+        //if state 
+        if (currentState==oldState){
+            token.push_back(ch);
+
+        }
+    }      
 }
 
 // Check if string is a keyword
@@ -142,16 +168,16 @@ void generateStateTable(unsigned int arr[6][6]){
 
 
 //By-Character Parsing Function
-void charParse(std::string input){
-    std::string token = "";
-    char c = '\0';
+// void charParse(std::string input){
+//     std::string token = "";
+//     char c = '\0';
 
-    // Stream to read string
-    std::istringstream stm(input);
+//     // Stream to read string
+//     std::istringstream stm(input);
 
-    // For each character in the string
+//     // For each character in the string
     
-}
+// }
 
 // Returns True if character is in the seperator list
 bool isSep(char c){
