@@ -150,7 +150,7 @@ void readFile(std::string filename){
 // Check if string is a keyword
 bool isKey(std::string s){
 
-    if (s.length() <= 7) {
+    if (s.length() <= 8) {
         for (int i = 0; i < keywordsMap[s.length()].size(); i++){
             if (s == keywordsMap[s.length()][i]){
                 return true;
