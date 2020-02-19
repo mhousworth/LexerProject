@@ -97,6 +97,8 @@ bool isKey(std::string s){
             }
         }
     }
+    else 
+        return false;
 }
 
 // Generates Keywords Map
