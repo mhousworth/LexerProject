@@ -157,6 +157,7 @@ bool isKey(std::string s){
             }
         }
     }
+    return false;
 }
 
 // Generates Keywords Map
@@ -301,4 +302,5 @@ unsigned int checkChar (char uno){
     else if (uno == '!'){
         return 5;
     }
+    return 0;
 }
