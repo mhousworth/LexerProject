@@ -137,7 +137,15 @@ void readFile(std::string filename){
                 charToken.push_back(ch);
                 tokenTypeList->push_back(std::pair<std::string, std::string>(charToken, "operator"));
             }
+            // if last state was error before white space we need toflag token as error
+            if(oldState == 0){
+                recordToken(token, oldState);
+            }
         }
+        else if(oldState == 0){
+            token.push_back(ch);          
+        }
+      
     }
     //Get last token
     if(token.length() != 0){
@@ -258,6 +266,9 @@ void recordToken(std::string token, unsigned int state){
     // If state 4, record as a float/double
     else if(oldState == 4){
         tokenPair.second = "float";
+    }
+    else if (oldState ==0){
+        tokenPair.second = "Error Input";
     }
 
     //Push back the tokenPair
