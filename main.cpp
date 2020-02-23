@@ -113,6 +113,11 @@ void readFile(std::string filename){
         }
         // Returning to initial state
         else if (currentState==1){
+            // Handle float error
+            if(input == 4 && oldState == 0){
+                    token.push_back(ch);
+                    continue;
+            }
             // If token is not empty
             if(token.length() != 0){
                 recordToken(token, oldState);
@@ -137,12 +142,8 @@ void readFile(std::string filename){
                 charToken.push_back(ch);
                 tokenTypeList->push_back(std::pair<std::string, std::string>(charToken, "operator"));
             }
-            // if last state was error before white space we need toflag token as error
-            if(oldState == 0){
-                recordToken(token, oldState);
-            }
         }
-        else if(oldState == 0){
+        else if(currentState == 0){
             token.push_back(ch);          
         }
       
@@ -195,9 +196,13 @@ void generateKeywords(){
 
 //Creates State Table
 void generateStateTable(unsigned int arr[6][6]){
-    // Set 0 state
-    for (int i=0; i<6; i++)
-        arr[0][i] = 0;
+    // Set 0 state, Error
+    arr[0][0] = 0; //Alpha
+    arr[0][1] = 0; //Digit
+    arr[0][2] = 1; //Seper
+    arr[0][3] = 1; //Oper
+    arr[0][4] = 1; //Period
+    arr[0][5] = 5; //Bang/Comment
 
     // State 1, Initial
     arr[1][0] = 2; //Alpha
@@ -267,7 +272,7 @@ void recordToken(std::string token, unsigned int state){
     else if(oldState == 4){
         tokenPair.second = "float";
     }
-    else if (oldState ==0){
+    else if (oldState == 0){
         tokenPair.second = "Error Input";
     }
 
