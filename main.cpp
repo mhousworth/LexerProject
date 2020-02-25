@@ -40,11 +40,11 @@ unsigned int stateTable[6][6];
 std::map<int, std::vector<std::string>> keywordsMap;
 
 // Vector of Tokens
-std::list<std::pair<std::string, std::string>>* tokenTypeList;
+std::vector<std::pair<std::string, std::string>> tokenTypeList;
 
 int main(){
 
-    tokenTypeList = new std::list<std::pair<std::string, std::string>>();
+    // tokenTypeList = new std::list<std::pair<std::string, std::string>>();
 
     generateKeywords();
     generateStateTable(stateTable);
@@ -57,9 +57,9 @@ int main(){
     printf("%-16s %16s \n", "Token", "Type");
     printf("%s \n", "----------------------------------");
 
-    for (std::_List_iterator<std::pair<std::string, std::string>> i=tokenTypeList->begin(); i != tokenTypeList->end(); i++){
-        const char* s1 = i->first.c_str();
-        const char* s2 = i->second.c_str();
+    for (int i=0; i != tokenTypeList.size(); i++){
+        const char* s1 = tokenTypeList[i].first.c_str();
+        const char* s2 = tokenTypeList[i].second.c_str();
         printf("%-16s %16s \n", s1, s2);
     }
 
@@ -74,6 +74,7 @@ std::string get_filename(std::string name){
     return file_name;
 }
 
+// Parses Tokens from a text file
 void readFile(std::string filename){
 
     char ch;
@@ -82,10 +83,17 @@ void readFile(std::string filename){
 
     while (fin >> std::noskipws >> ch) {
         // std::cout << ch << std::endl;
+
+        // Get character
         input = checkChar(ch);
+        // Saves previous state
         oldState = currentState;
+        // Get next state based on the state table
         currentState = stateTable[oldState][input];
         
+        // ----------------------
+        // State transition logic
+
         // If in a comment block
         if((currentState == 5) && (oldState == 5)){
             // Make no change, do not save characters
@@ -96,6 +104,8 @@ void readFile(std::string filename){
             // If we have a non-empty string, evaluate the token type
             if (token.length() != 0){
                 recordToken(token, oldState);
+                // Clear token
+                token = "";
             }
             else{
                 // Nothing to record
@@ -134,13 +144,13 @@ void readFile(std::string filename){
                 
                 std::string charToken = "";
                 charToken.push_back(ch);
-                tokenTypeList->push_back(std::pair<std::string, std::string>(charToken, "seperator"));
+                tokenTypeList.push_back(std::pair<std::string, std::string>(charToken, "seperator"));
             }
             // If operator
             else if(input == 3){
                 std::string charToken = "";
                 charToken.push_back(ch);
-                tokenTypeList->push_back(std::pair<std::string, std::string>(charToken, "operator"));
+                tokenTypeList.push_back(std::pair<std::string, std::string>(charToken, "operator"));
             }
         }
         else if(currentState == 0){
@@ -277,7 +287,7 @@ void recordToken(std::string token, unsigned int state){
     }
 
     //Push back the tokenPair
-    tokenTypeList->push_back(tokenPair);
+    tokenTypeList.push_back(tokenPair);
 }
 
 // Returns True if character is in the seperator list
