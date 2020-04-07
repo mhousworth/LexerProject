@@ -1,2 +1,5 @@
 ! test comment 9 ( ) = !
-while  (fahr < 243upper)   a = 23.0.0 whileend
+while  (fahr < 243upper)   a--23.00 whileend
+! test comment 9 ( ) = !
+while  (fahr < 243upper)   a--23.00 whileend
+! test comment 9 ( ) = !
