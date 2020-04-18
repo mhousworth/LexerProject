@@ -2,6 +2,8 @@
     Sample of using the Lexer class
     test.txt provided, type "test" in prompt
     Will create output.txt
+
+    Uncomment main to run sample
 */
 
 #include <list>
@@ -16,20 +18,20 @@
 
 std::string get_filename();
 
-int main(){
+// int main(){
 
-    // Vector of Tokens and Lexemes
-    std::vector<std::pair<std::string, std::string>> lexemeToken;
+//     // Vector of Tokens and Lexemes
+//     std::vector<std::pair<std::string, std::string>> lexemeToken;
 
-    Lexer Lex;
+//     Lexer Lex;
 
-    Lex.readFile(get_filename());
-    Lex.outputList();
+//     Lex.readFile(get_filename());
+//     Lex.outputList();
 
-    lexemeToken = Lex.getList();
+//     lexemeToken = Lex.getList();
 
-    return true;
-}
+//     return true;
+// }
 
 std::string get_filename(){
     std::string file_name;

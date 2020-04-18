@@ -1,5 +1,9 @@
-#include "Lexer.h"
+#include "./Lexer.h"
 #include "stdlib.h"
+
+#include <list>
+#include <vector>
+#include <map>
 
 #include <iostream>
 #include <fstream>
@@ -105,6 +109,8 @@ void Lexer::readFile(std::string f_n){
         // Clear token
         token = "";
     }
+
+    fin.close();
 }
 
 void Lexer::outputList(){
@@ -124,6 +130,8 @@ void Lexer::outputList(){
         sprintf(output, "%-16s %16s \n", s2, s1);
         fout << output;
     }
+
+    fout.close();
 }
 
 std::vector<std::pair<std::string, std::string>> Lexer::getList(){
@@ -134,7 +142,12 @@ std::vector<std::pair<std::string, std::string>> Lexer::getList(){
 void Lexer::generateKeywords(){
 
     std::ifstream ifs;
-    ifs.open("keywords.txt", std::ifstream::in);
+
+    std::string path = __FILE__; //gets source code path, include file name
+    path = path.substr(0,1+path.find_last_of('/')); //removes file name
+    path+= "keywords.txt"; //adds input file to path
+    
+    ifs.open(path, std::ifstream::in);
 
     for(int i = 1; !ifs.eof(); i++){
 
@@ -153,6 +166,8 @@ void Lexer::generateKeywords(){
             keywordsMap[i].push_back(word);
         }
     }
+
+    ifs.close();
 }
 
 //Creates State Table
