@@ -3,7 +3,7 @@
     test.txt provided, type "test" in prompt
     Will create output.txt
 
-    Uncomment main to run sample code
+    Uncomment code below to run sample code
 */
 
 #include <list>
@@ -16,7 +16,7 @@
 #include <sstream>
 #include "Lexer.h"
 
-std::string get_filename();
+// std::string get_filename();
 
 // int main(){
 
@@ -33,10 +33,10 @@ std::string get_filename();
 //     return true;
 // }
 
-std::string get_filename(){
-    std::string file_name;
-    std::cout << "Please enter a filename to analyze:" << std::endl;
-    std::cin >> file_name;
-    file_name.append(".txt");
-    return file_name;
-}
+// std::string get_filename(){
+//     std::string file_name;
+//     std::cout << "Please enter a filename to analyze:" << std::endl;
+//     std::cin >> file_name;
+//     file_name.append(".txt");
+//     return file_name;
+// }
