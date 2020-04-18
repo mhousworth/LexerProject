@@ -3,7 +3,7 @@
     test.txt provided, type "test" in prompt
     Will create output.txt
 
-    Uncomment main to run sample
+    Uncomment main to run sample code
 */
 
 #include <list>
